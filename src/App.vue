@@ -154,10 +154,11 @@ export default {
           eachCard => card.code === eachCard.cardCode
         );
         const neededCard = Object.assign({}, foundCard);
-        neededCard.quantity = Math.abs(neededCard.quantity - card.count);
+        neededCard.quantity = neededCard.quantity - card.count;
         neededCard.rarity = neededCard.rarity.toLowerCase();
 
-        if (neededCard.quantity > 0) {
+        if (neededCard.quantity < 0) {
+          neededCard.quantity = Math.abs(neededCard.quantity);
           neededCards.push(neededCard);
         }
       });
